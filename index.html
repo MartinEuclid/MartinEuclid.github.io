@@ -5,54 +5,162 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Xinfeng Gu — Quant · Crypto-Quant · ZK</title>
   <style>
-    body.light { --bg:#f8fafc; --panel:#fff; --muted:#475569; --text:#0f172a; --border:rgba(71,85,105,.26); }
-    :root {
-  --bg:#f0f9ff;      /* 浅蓝背景 */
-  --panel:#ffffff;   /* 白色卡片 */
-  --muted:#475569;   /* 深灰文字 */
-  --text:#0f172a;    /* 深蓝文字 */
-  --brand:#2563eb;   /* 蓝色按钮 */
-  --brand2:#38bdf8;  /* 青蓝渐变 */
-  --border:rgba(71,85,105,.26);
-}
+    /* ===== Theme tokens (default: dark) ===== */
+    :root{
+      --bg:#0b1020;
+      --panel:rgba(17,24,39,.88);
+      --muted:#94a3b8;
+      --text:#e5e7eb;
 
-    @media (prefers-color-scheme: light){:root{--bg:#f8fafc;--panel:#fff;--muted:#475569;--text:#0f172a;--border:rgba(71,85,105,.26);}}
-    *,*::before,*::after{box-sizing:border-box} html,body{height:100%}
-    body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-      background:radial-gradient(1200px 600px at 80% -10%,rgba(34,211,238,.15),transparent 45%),
-                 radial-gradient(900px 400px at -10% 20%,rgba(167,139,250,.15),transparent 50%),var(--bg);
-      color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
-    a{color:var(--brand);text-decoration:none} a:hover{text-decoration:underline}
+      --brand:#60a5fa;
+      --brand2:#22d3ee;
+
+      --border:rgba(148,163,184,.18);
+      --chip:rgba(255,255,255,.06);
+      --header:rgba(11,16,32,.72);
+    }
+
+    /* Follow system light mode when no manual override */
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f0f9ff;
+        --panel:#ffffff;
+        --muted:#475569;
+        --text:#0f172a;
+
+        --brand:#2563eb;
+        --brand2:#38bdf8;
+
+        --border:rgba(71,85,105,.26);
+        --chip:rgba(15,23,42,.06);
+        --header:rgba(255,255,255,.72);
+      }
+    }
+
+    /* Manual overrides */
+    body.light{
+      --bg:#f0f9ff;
+      --panel:#ffffff;
+      --muted:#475569;
+      --text:#0f172a;
+
+      --brand:#2563eb;
+      --brand2:#38bdf8;
+
+      --border:rgba(71,85,105,.26);
+      --chip:rgba(15,23,42,.06);
+      --header:rgba(255,255,255,.72);
+    }
+    body.dark{
+      --bg:#0b1020;
+      --panel:rgba(17,24,39,.88);
+      --muted:#94a3b8;
+      --text:#e5e7eb;
+
+      --brand:#60a5fa;
+      --brand2:#22d3ee;
+
+      --border:rgba(148,163,184,.18);
+      --chip:rgba(255,255,255,.06);
+      --header:rgba(11,16,32,.72);
+    }
+
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      background:
+        radial-gradient(1200px 600px at 80% -10%,rgba(34,211,238,.15),transparent 45%),
+        radial-gradient(900px 400px at -10% 20%,rgba(167,139,250,.15),transparent 50%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
+
     .container{max-width:1100px;margin:0 auto;padding:24px}
-    header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(12px);background:rgba(11,16,32,.75);
-      border-bottom:1px solid var(--border);z-index:50}
+
+    header{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter:saturate(180%) blur(12px);
+      background:var(--header);
+      border-bottom:1px solid var(--border);
+    }
+
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .nav a.btn{padding:8px 14px;border:1px solid var(--border);border-radius:12px}
     .brand{display:flex;align-items:center;gap:12px;font-weight:700}
     .dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand2))}
+
+    .links{display:flex;gap:14px;flex-wrap:wrap}
+
     .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;padding:48px 0 20px}
     .hero h1{font-size:clamp(28px,4vw,46px);line-height:1.15;margin:8px 0 10px}
     .tagline{font-size:clamp(14px,2.2vw,18px);color:var(--muted)}
+
     .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:12px;
-      border:1px solid var(--border);color:var(--text)}
-    .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#0b1020;border:none}
-    .section{padding:34px 0} .section h2{font-size:clamp(20px,3vw,28px);margin:0 0 14px}
+
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:10px 16px;border-radius:12px;
+      border:1px solid var(--border);
+      color:var(--text);
+      background:transparent;          /* important for <button> */
+      cursor:pointer;                 /* important for <button> */
+    }
+    .btn.primary{
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      color:#0b1020;
+      border:none;
+    }
+
+    .section{padding:34px 0}
+    .section h2{font-size:clamp(20px,3vw,28px);margin:0 0 14px}
+
+    /* Anchor offset for sticky header */
+    .hero, .section{scroll-margin-top:90px}
+
     .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-    .card{grid-column:span 12;padding:18px;background:rgba(17,24,39,.88);border:1px solid var(--border);
-      border-radius:16px;box-shadow:0 10px 30px -20px rgba(0,0,0,.35)}
-    @media (prefers-color-scheme: light){.card{background:#fff}}
+    .card{
+      grid-column:span 12;
+      padding:18px;
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:16px;
+      box-shadow:0 10px 30px -20px rgba(0,0,0,.35);
+    }
     @media (min-width:860px){.card.md6{grid-column:span 6}}
+
     .card h3{margin:6px 0 8px;font-size:18px}
     .muted{color:var(--muted);font-size:14px}
+
     .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-    .badge{font-size:12px;padding:6px 10px;border-radius:999px;background:rgba(17,24,39,.6);border:1px solid var(--border)}
-    .footer{padding:36px 0 48px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-    .links{display:flex;gap:14px;flex-wrap:wrap}
-    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;background:rgba(17,24,39,.7);
-      padding:2px 6px;border-radius:6px;border:1px solid var(--border)}
+    .badge{
+      font-size:12px;padding:6px 10px;border-radius:999px;
+      background:var(--chip);
+      border:1px solid var(--border)
+    }
+
+    .kbd{
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+      font-size:12px;
+      background:var(--chip);
+      padding:2px 6px;border-radius:6px;border:1px solid var(--border)
+    }
+
+    .footer{
+      padding:36px 0 48px;
+      color:var(--muted);
+      font-size:14px;
+      display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap
+    }
   </style>
 </head>
+
 <body>
   <header>
     <div class="container nav">
@@ -61,7 +169,7 @@
         <a class="btn" href="#projects">Projects</a>
         <a class="btn" href="#about">About</a>
         <a class="btn" href="#contact">Contact</a>
-        <button class="btn" id="themeToggle">🌗 Theme</button>
+        <button class="btn" id="themeToggle" type="button">🌗 Theme</button>
       </nav>
     </div>
   </header>
@@ -87,17 +195,14 @@
       </div>
     </section>
 
-    <!-- Projects Section -->
     <section class="section" id="projects">
       <h2>Featured Projects</h2>
       <div class="grid">
-        <!-- Example project card -->
         <article class="card md6">
           <h3>text_signal_mvp</h3>
           <p class="muted">Text → Signal → IC → Backtest</p>
           <a href="https://github.com/xinfeng-gu/text_signal_mvp" class="btn">Repo</a>
         </article>
-        <!-- Add other projects similarly -->
       </div>
     </section>
 
@@ -127,15 +232,40 @@
   </footer>
 
   <script>
-    var btn=document.getElementById('themeToggle');
-    var mode=localStorage.getItem('theme');
-    if(mode==='light')document.body.classList.add('light');
-    if(btn){btn.addEventListener('click',function(){
-      document.body.classList.toggle('light');
-      localStorage.setItem('theme',document.body.classList.contains('light')?'light':'dark');
-    });}
-    document.getElementById('yr').textContent=new Date().getFullYear();
-    document.getElementById('lastUpdated').textContent=new Date(document.lastModified).toLocaleDateString();
+    const btn = document.getElementById('themeToggle');
+    const key = 'theme';
+    const saved = localStorage.getItem(key);
+
+    // Apply saved override if any
+    if (saved === 'light' || saved === 'dark') document.body.classList.add(saved);
+
+    function effectiveIsLight(){
+      const b = document.body;
+      if (b.classList.contains('light')) return true;
+      if (b.classList.contains('dark')) return false;
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    }
+
+    function syncButton(){
+      if (!btn) return;
+      btn.textContent = effectiveIsLight() ? '🌙 Dark' : '🌞 Light';
+    }
+
+    if (btn){
+      btn.addEventListener('click', () => {
+        const isLight = effectiveIsLight();
+        document.body.classList.remove('light','dark');
+        document.body.classList.add(isLight ? 'dark' : 'light');
+        localStorage.setItem(key, isLight ? 'dark' : 'light');
+        syncButton();
+      });
+    }
+
+    syncButton();
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    document.getElementById('lastUpdated').textContent =
+      new Date(document.lastModified).toLocaleDateString();
   </script>
 </body>
 </html>
