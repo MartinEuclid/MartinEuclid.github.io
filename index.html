@@ -1,173 +1,550 @@
 <!doctype html>
-<html lang="zh-Hant" data-theme="auto">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title><!-- Xinfeng GU --></title>
+  <meta name="description" content="Gu Xinfeng — Quant, Crypto, Blockchain (ZK), AI. Evidence-driven research and reproducible experiments." />
+  <title>Gu Xinfeng — Quant · Crypto · Blockchain · AI</title>
 
   <style>
-    /* ========= 主題變數 ========= */
+    /* =========================
+      Theme (default = Light)
+      你要默認白天模式：就保持 html[data-theme="light"]
+    ========================= */
     :root{
+      --bg:#f6fbff;
+      --panel:#ffffff;
+      --panel2:rgba(15,23,42,.04);
+      --text:#0f172a;
+      --muted:#475569;
+      --border:rgba(71,85,105,.18);
+      --brand:#2563eb;
+      --brand2:#38bdf8;
+      --shadow:0 18px 45px -30px rgba(15,23,42,.25);
+      --radius:16px;
+      --radius2:12px;
+      --container:1100px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+
+    /* Dark theme (optional, can be toggled) */
+    html[data-theme="dark"]{
       --bg:#0b1020;
       --panel:rgba(17,24,39,.9);
+      --panel2:rgba(255,255,255,.06);
       --text:#e5e7eb;
       --muted:#9aa4b2;
       --border:rgba(148,163,184,.18);
       --brand:#60a5fa;
       --brand2:#22d3ee;
-      --header:rgba(11,16,32,.72);
-    }
-
-    html[data-theme="light"]{
-      --bg:#f8fafc;
-      --panel:#ffffff;
-      --text:#0f172a;
-      --muted:#475569;
-      --border:rgba(71,85,105,.25);
-      --brand:#2563eb;
-      --brand2:#38bdf8;
-      --header:rgba(255,255,255,.8);
+      --shadow:0 16px 40px -26px rgba(0,0,0,.45);
     }
 
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-      background:var(--bg);
+      font-family:var(--font);
       color:var(--text);
       line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+      background:
+        radial-gradient(1100px 700px at 85% -12%, rgba(56,189,248,.18), transparent 45%),
+        radial-gradient(900px 500px at -10% 25%, rgba(167,139,250,.14), transparent 52%),
+        var(--bg);
     }
 
     a{color:var(--brand);text-decoration:none}
     a:hover{text-decoration:underline}
 
-    .container{max-width:1000px;margin:auto;padding:24px}
+    .container{max-width:var(--container);margin:0 auto;padding:24px}
 
     header{
-      position:sticky;top:0;z-index:10;
-      backdrop-filter:blur(12px);
-      background:var(--header);
+      position:sticky;top:0;z-index:20;
+      backdrop-filter:saturate(180%) blur(12px);
+      background: rgba(255,255,255,.72);
       border-bottom:1px solid var(--border);
     }
-
-    .nav{display:flex;justify-content:space-between;align-items:center}
-    .links{display:flex;gap:12px;flex-wrap:wrap}
-
-    .btn{
-      padding:8px 14px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      background:transparent;
-      color:var(--text);
-      cursor:pointer;
+    html[data-theme="dark"] header{
+      background: rgba(11,16,32,.72);
     }
 
-    .section{padding:48px 0}
-    .section h2{margin-bottom:12px}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:760;letter-spacing:.2px;white-space:nowrap}
+    .dot{
+      width:10px;height:10px;border-radius:999px;
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      box-shadow:0 0 0 4px rgba(2,6,23,.06);
+    }
+
+    .links{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:9px 14px;border-radius:var(--radius2);
+      border:1px solid var(--border);
+      background:transparent;color:var(--text);
+      cursor:pointer;user-select:none;
+    }
+    .btn:hover{ text-decoration:none; border-color:rgba(71,85,105,.30); }
+
+    .btn.primary{
+      border:none;
+      color:#06101f;
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+    }
+
+    section{ scroll-margin-top: 92px; }
+
+    .hero{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:18px;
+      align-items:center;
+      padding:52px 0 18px;
+    }
+    @media (max-width:900px){ .hero{grid-template-columns:1fr} }
+
+    .kicker{
+      display:inline-flex;align-items:center;gap:10px;
+      font-family:var(--mono);
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:var(--panel2);
+      color:var(--muted);
+      width:fit-content;
+    }
+
+    h1{
+      font-size:clamp(28px,4vw,48px);
+      line-height:1.15;
+      margin:12px 0 10px;
+      letter-spacing:-.2px;
+    }
+    .tagline{
+      font-size:clamp(14px,2.2vw,18px);
+      color:var(--muted);
+      margin:0;
+    }
+
+    .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
 
     .card{
       background:var(--panel);
       border:1px solid var(--border);
-      border-radius:16px;
-      padding:20px;
-      margin-top:16px;
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
     }
+
+    .muted{color:var(--muted);font-size:14px}
+
+    .section{padding:34px 0}
+    .section h2{
+      font-size:clamp(20px,3vw,28px);
+      margin:0 0 12px;
+      letter-spacing:-.2px;
+    }
+
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .col-12{grid-column:span 12}
+    .col-6{grid-column:span 12}
+    @media (min-width:860px){ .col-6{grid-column:span 6} }
+
+    .pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .pill{
+      font-size:12px;padding:6px 10px;border-radius:999px;
+      border:1px solid var(--border);
+      background:var(--panel2);
+      color:var(--muted);
+    }
+
+    .rowTitle{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .rowTitle h3{margin:0;font-size:18px}
+    .divider{height:1px;background:var(--border);border:none;margin:14px 0}
+
+    ul.tight{margin:10px 0 0;padding-left:18px}
+    ul.tight li{margin:6px 0}
 
     footer{
       border-top:1px solid var(--border);
-      padding:32px 0;
+      margin-top:34px;
+      padding:30px 0 52px;
       color:var(--muted);
       font-size:14px;
-      margin-top:48px;
+    }
+
+    code.inline{
+      font-family:var(--mono);font-size:12px;
+      padding:2px 6px;border-radius:8px;
+      border:1px solid var(--border);
+      background:var(--panel2);
+    }
+
+    /* small accessibility */
+    .skip{
+      position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden;
+    }
+    .skip:focus{
+      left:16px;top:16px;width:auto;height:auto;overflow:visible;
+      padding:10px 12px;border-radius:12px;background:var(--panel);
+      border:1px solid var(--border);z-index:99;
     }
   </style>
 </head>
 
 <body>
-<header>
-  <div class="container nav">
-    <div>
-      <!-- 你的名字 -->
+  <a class="skip" href="#content">Skip to content</a>
+
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <span class="dot" aria-hidden="true"></span>
+        <!-- ✅ 這裡改你的顯示名字 -->
+        <span>Gu Xinfeng</span>
+      </div>
+
+      <nav class="links" aria-label="Primary">
+        <a class="btn" href="#home">Home</a>
+        <a class="btn" href="#research">Research</a>
+        <a class="btn" href="#experience">Experience</a>
+        <a class="btn" href="#papers">Papers</a>
+        <a class="btn" href="#skills">Skills</a>
+        <a class="btn" href="#contact">Contact</a>
+        <button class="btn" id="themeToggle" type="button" aria-label="Toggle theme">🌙</button>
+      </nav>
     </div>
-    <nav class="links">
-      <a class="btn" href="#home">Home</a>
-      <a class="btn" href="#resume">Resume</a>
-      <a class="btn" href="#papers">Papers</a>
-      <a class="btn" href="#contact">Contact</a>
-      <button class="btn" id="themeToggle">Theme</button>
-    </nav>
-  </div>
-</header>
+  </header>
 
-<main class="container">
+  <main class="container" id="content">
+    <!-- =========================
+      HERO
+    ========================= -->
+    <section class="hero" id="home">
+      <div>
+        <div class="kicker">Quant · Crypto · Blockchain (ZK) · AI</div>
+        <h1>Evidence-driven research, reproducible experiments.</h1>
+        <p class="tagline">
+          I work on quantitative finance and crypto market research, zero-knowledge proof engineering,
+          and ML/RL methods for decision-making under constraints.
+        </p>
 
-  <!-- ===== 首頁 ===== -->
-  <section class="section" id="home">
-    <h1></h1>
-    <p></p>
-  </section>
+        <div class="cta">
+          <!-- ✅ 如果你要提供PDF：把文件放到 assets/cv.pdf，這個按鈕就能用 -->
+          <a class="btn primary" href="assets/cv.pdf">Download CV (PDF)</a>
 
-  <!-- ===== 簡歷 ===== -->
-  <section class="section" id="resume">
-    <h2>Resume</h2>
+          <!-- ✅ 改成你的 GitHub（這裡我先用你之前聊天提到的賬號） -->
+          <a class="btn" href="https://github.com/xinfeng-gu">GitHub</a>
 
-    <div class="card">
-      <h3></h3>
-      <p></p>
-    </div>
+          <!-- ✅ 你的郵箱 -->
+          <a class="btn" href="mailto:martineuclid@gmail.com">Email</a>
+        </div>
 
-    <div class="card">
-      <h3></h3>
-      <p></p>
-    </div>
-  </section>
+        <div class="pills" aria-label="Focus areas">
+          <span class="pill">Crypto market microstructure</span>
+          <span class="pill">Text / signals / evaluation</span>
+          <span class="pill">Stochastic control + RL</span>
+          <span class="pill">ZK: SNARK/PLONK/FRI</span>
+        </div>
+      </div>
 
-  <!-- ===== 論文 ===== -->
-  <section class="section" id="papers">
-    <h2>Papers</h2>
+      <aside class="card">
+        <div class="rowTitle">
+          <h3>Now</h3>
+          <span class="muted"><code class="inline">Open to research collaboration</code></span>
+        </div>
+        <ul class="tight muted">
+          <li>Quant & crypto research pipelines: hypothesis → data → evaluation → backtest</li>
+          <li>Zero-knowledge proof components and benchmarking (BN254 / BLS12-381)</li>
+          <li>RL / optimization under constraints (control, portfolio, HJB-type problems)</li>
+        </ul>
+        <hr class="divider" />
+        <p class="muted" style="margin:0;">
+          <!-- ✅ 你要不要顯示電話自己決定；不想放就把這行刪掉 -->
+          Phone: <code class="inline">+852 6277 1267</code>
+        </p>
+      </aside>
+    </section>
 
-    <div class="card">
-      <h3></h3>
-      <p></p>
-      <p></p>
-    </div>
+    <!-- =========================
+      RESEARCH (把教育背景隱去，只保留關鍵詞)
+    ========================= -->
+    <section class="section" id="research">
+      <h2>Research direction</h2>
 
-    <div class="card">
-      <h3></h3>
-      <p></p>
-      <p></p>
-    </div>
-  </section>
+      <div class="grid">
+        <article class="card col-6">
+          <div class="rowTitle">
+            <h3>Quant & Crypto</h3>
+            <span class="muted">Research</span>
+          </div>
+          <p class="muted" style="margin:10px 0 0;">
+            Quantitative finance and crypto market research with emphasis on rigorous evaluation,
+            leakage-aware validation, and reproducible pipelines.
+          </p>
+          <div class="pills">
+            <span class="pill">Portfolio optimization</span>
+            <span class="pill">Microstructure</span>
+            <span class="pill">SQL data feeds</span>
+            <span class="pill">Backtesting</span>
+          </div>
+        </article>
 
-  <!-- ===== 聯絡 ===== -->
-  <section class="section" id="contact">
-    <h2>Contact</h2>
+        <article class="card col-6">
+          <div class="rowTitle">
+            <h3>Blockchain & ZK</h3>
+            <span class="muted">Engineering</span>
+          </div>
+          <p class="muted" style="margin:10px 0 0;">
+            ZK proof systems and implementation details: pairings, FFT/MSM, prover/verifier benchmarking,
+            and security assumptions (Fiat–Shamir style arguments).
+          </p>
+          <div class="pills">
+            <span class="pill">SNARK / PLONK / FRI</span>
+            <span class="pill">BN254 / BLS12-381</span>
+            <span class="pill">Rust / Solidity</span>
+            <span class="pill">Fuzzing / test vectors</span>
+          </div>
+        </article>
 
-    <div class="card">
-      <p></p>
-      <p></p>
-    </div>
-  </section>
+        <article class="card col-12">
+          <div class="rowTitle">
+            <h3>AI / RL under constraints</h3>
+            <span class="muted">Methods</span>
+          </div>
+          <p class="muted" style="margin:10px 0 0;">
+            Reinforcement learning and optimization for partially observed stochastic systems,
+            delay systems, and mixed state–control constraints. Focus on stability, robustness,
+            and diagnostic-driven iteration.
+          </p>
+          <div class="pills">
+            <span class="pill">Stochastic processes</span>
+            <span class="pill">Convex optimization</span>
+            <span class="pill">HJB / PDE</span>
+            <span class="pill">Ablations & diagnostics</span>
+          </div>
+        </article>
 
-</main>
+        <!-- ✅ 這一塊是“教育關鍵詞”，不包含學校/學位/年份 -->
+        <article class="card col-12">
+          <div class="rowTitle">
+            <h3>Background keywords</h3>
+            <span class="muted">No institutions listed</span>
+          </div>
+          <p class="muted" style="margin:10px 0 0;">
+            Real analysis, high-dimensional analysis, stochastic processes, simulation, numerical analysis,
+            abstract algebra, functional analysis, convex optimization, machine learning.
+          </p>
+        </article>
+      </div>
+    </section>
 
-<footer>
-  <div class="container">
-    © <span id="year"></span>
-  </div>
-</footer>
+    <!-- =========================
+      EXPERIENCE
+    ========================= -->
+    <section class="section" id="experience">
+      <h2>Experience</h2>
 
-<script>
-  // 主題切換（可不管，能用即可）
-  const btn = document.getElementById("themeToggle");
-  const root = document.documentElement;
-  btn.onclick = () => {
-    root.dataset.theme =
-      root.dataset.theme === "light" ? "dark" : "light";
-  };
+      <div class="grid">
+        <article class="card col-12">
+          <div class="rowTitle">
+            <h3>Cryptography & Blockchain — Research Assistant</h3>
+            <span class="muted">Sep 2025 — Present</span>
+          </div>
+          <ul class="tight muted">
+            <li>Prototyped ZK proof components in <strong>Rust / Solidity / Python</strong>; benchmarked prover & verifier on <strong>BN254 / BLS12-381</strong> circuits.</li>
+            <li>Formalized security assumptions (soundness / knowledge via Fiat–Shamir style arguments); authored test vectors and basic fuzzing.</li>
+          </ul>
+        </article>
 
-  document.getElementById("year").textContent =
-    new Date().getFullYear();
-</script>
+        <article class="card col-12">
+          <div class="rowTitle">
+            <h3>Quantitative Finance / Control — Research & Student Assistant</h3>
+            <span class="muted">2023 — 2025</span>
+          </div>
+          <ul class="tight muted">
+            <li>High-dimensional sparse models for evolving networks; data collection/cleaning and out-of-sample evaluation (<strong>R</strong>).</li>
+            <li>Portfolio optimization pipelines with supervised ML & RL; leakage-aware cross-validation; reproducible experiments (<strong>Python / C++</strong>).</li>
+            <li>Stochastic control and RL under constraints: partially observed systems, delay systems, HJB/PDE formulations; stability/robustness validation (<strong>Python / MATLAB</strong>).</li>
+            <li>Continuous-time portfolio selection with execution/position constraints; backtests with <strong>SQL</strong> data feeds.</li>
+            <li>McKean–Vlasov control with mixed constraints; convergence diagnostics and experiment logging.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========================
+      PAPERS
+    ========================= -->
+    <section class="section" id="papers">
+      <h2>Papers</h2>
+
+      <div class="grid">
+        <article class="card col-12">
+          <div class="rowTitle">
+            <h3>Optimal Consumption–Investment for General Utility with a Drawdown Constraint over a Finite-Time Horizon</h3>
+            <span class="muted">2025</span>
+          </div>
+          <p class="muted" style="margin:10px 0 0;">
+            Chonghu Guan, Xinfeng Gu, Wenhao Zhang, Xun Li.
+          </p>
+          <div class="cta" style="margin-top:12px;">
+            <a class="btn primary" href="https://arxiv.org/abs/2507.05115">arXiv:2507.05115</a>
+            <!-- ✅ 如果你也有PDF想自己放：把文件放 assets/papers/xxx.pdf，然後改下面href -->
+            <!-- <a class="btn" href="assets/papers/drawdown.pdf">PDF</a> -->
+          </div>
+        </article>
+
+        <article class="card col-12">
+          <div class="rowTitle">
+            <h3>Working paper</h3>
+            <span class="muted">Draft</span>
+          </div>
+          <p class="muted" style="margin:10px 0 0;">
+            A Reinforcement Learning Method for Optimal Multi-period Mean–Variance (draft in preparation).
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========================
+      SKILLS
+    ========================= -->
+    <section class="section" id="skills">
+      <h2>Skills</h2>
+
+      <div class="grid">
+        <article class="card col-6">
+          <div class="rowTitle">
+            <h3>Programming</h3>
+            <span class="muted">Tools</span>
+          </div>
+          <p class="muted" style="margin:10px 0 0;">
+            Python, C++, Rust, Solidity, R, MATLAB, SQL, LaTeX
+          </p>
+        </article>
+
+        <article class="card col-6">
+          <div class="rowTitle">
+            <h3>Domains</h3>
+            <span class="muted">Focus</span>
+          </div>
+          <p class="muted" style="margin:10px 0 0;">
+            ZK (SNARK/PLONK/FRI), Pairings/FFT/MSM, EVM; Stochastic control, RL, optimization
+          </p>
+        </article>
+
+        <article class="card col-12">
+          <div class="rowTitle">
+            <h3>Languages</h3>
+            <span class="muted">Human</span>
+          </div>
+          <p class="muted" style="margin:10px 0 0;">
+            English · Mandarin (native) · Cantonese (fluent) · Japanese (JLPT N2) · Korean · Vietnamese
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========================
+      AWARDS (可選)
+    ========================= -->
+    <section class="section" id="awards">
+      <h2>Awards</h2>
+      <div class="card">
+        <ul class="tight muted">
+          <li>Simon Marais Mathematics Competition — SFM Prize (Top Quartile), 2022</li>
+          <li>Simon Marais Mathematics Competition — SFM Prize (Top Quartile), 2023</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- =========================
+      CONTACT
+    ========================= -->
+    <section class="section" id="contact">
+      <h2>Contact</h2>
+
+      <div class="card">
+        <p class="muted" style="margin-top:0;">
+          For collaborations, research internships, or engineering roles in quant/crypto/ZK/AI, email is best.
+        </p>
+
+        <div class="cta" style="margin-top:12px;">
+          <a class="btn primary" href="mailto:martineuclid@gmail.com">martineuclid@gmail.com</a>
+          <a class="btn" href="https://github.com/xinfeng-gu">GitHub</a>
+          <button class="btn" id="copyEmail" type="button">Copy email</button>
+        </div>
+
+        <hr class="divider" />
+
+        <p class="muted" style="margin:0;">
+          Last updated: <span id="lastUpdated">—</span> · © <span id="yr">—</span> Gu Xinfeng
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container" style="padding:0;">
+        <span class="muted">Built as a single static file for GitHub Pages.</span>
+        <span style="float:right;" class="muted"><a href="#home">Back to top ↑</a></span>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // =========================
+    // Theme toggle (default = light)
+    // 規則：點一次在 light / dark 之間切換；並記住你的選擇
+    // =========================
+    const STORAGE_KEY = "theme";
+    const root = document.documentElement;
+    const toggle = document.getElementById("themeToggle");
+
+    function setTheme(theme){
+      root.setAttribute("data-theme", theme);
+      localStorage.setItem(STORAGE_KEY, theme);
+      if (toggle) toggle.textContent = (theme === "light") ? "🌙" : "🌞";
+      if (toggle) toggle.title = `Theme: ${theme}`;
+    }
+
+    // init
+    (function(){
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved === "dark" || saved === "light") setTheme(saved);
+      else setTheme("light"); // ✅ 你要求的：默認白天
+    })();
+
+    if (toggle){
+      toggle.addEventListener("click", () => {
+        const current = root.getAttribute("data-theme") || "light";
+        setTheme(current === "light" ? "dark" : "light");
+      });
+    }
+
+    // Footer dates
+    document.getElementById("yr").textContent = new Date().getFullYear();
+    document.getElementById("lastUpdated").textContent =
+      new Date(document.lastModified).toLocaleDateString(undefined, { year:"numeric", month:"short", day:"2-digit" });
+
+    // Copy email
+    const copyBtn = document.getElementById("copyEmail");
+    if (copyBtn) {
+      copyBtn.addEventListener("click", async () => {
+        const email = "martineuclid@gmail.com";
+        try{
+          await navigator.clipboard.writeText(email);
+          copyBtn.textContent = "Copied ✓";
+          setTimeout(() => copyBtn.textContent = "Copy email", 1200);
+        } catch (e) {
+          window.location.href = "mailto:" + email;
+        }
+      });
+    }
+  </script>
 </body>
 </html>
