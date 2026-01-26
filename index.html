@@ -1,631 +1,173 @@
 <!doctype html>
-<html lang="en" data-theme="auto">
+<html lang="zh-Hant" data-theme="auto">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Xinfeng Gu — Quant, Crypto-Quant, Zero-Knowledge, LLMs. Reproducible research, benchmarks, and trading signals with evidence." />
-  <title>Xinfeng Gu — Quant · Crypto-Quant · ZK · LLM</title>
-
-  <!-- Open Graph (optional) -->
-  <meta property="og:title" content="Xinfeng Gu — Quant · Crypto-Quant · ZK · LLM" />
-  <meta property="og:description" content="Reproducible research, small solid benchmarks, and evidence-driven signals." />
-  <meta property="og:type" content="website" />
+  <title><!-- 你的名字 --></title>
 
   <style>
-    /* =========================
-       Theme tokens
-       ========================= */
+    /* ========= 主題變數 ========= */
     :root{
-      --radius: 16px;
-      --radius-sm: 12px;
-      --container: 1100px;
-
-      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-
-      --shadow: 0 16px 40px -26px rgba(0,0,0,.45);
-
-      /* Defaults (will be replaced by theme) */
-      --bg: #0b1020;
-      --surface: rgba(17,24,39,.88);
-      --surface2: rgba(255,255,255,.06);
-      --text: #e5e7eb;
-      --muted: #9aa4b2;
-      --border: rgba(148,163,184,.18);
-      --brand: #60a5fa;
-      --brand2: #22d3ee;
-      --header: rgba(11,16,32,.72);
+      --bg:#0b1020;
+      --panel:rgba(17,24,39,.9);
+      --text:#e5e7eb;
+      --muted:#9aa4b2;
+      --border:rgba(148,163,184,.18);
+      --brand:#60a5fa;
+      --brand2:#22d3ee;
+      --header:rgba(11,16,32,.72);
     }
 
-    /* Auto theme: follow system unless overridden */
-    @media (prefers-color-scheme: light){
-      html[data-theme="auto"]{
-        --bg: #f0f9ff;
-        --surface: #ffffff;
-        --surface2: rgba(15,23,42,.06);
-        --text: #0f172a;
-        --muted: #475569;
-        --border: rgba(71,85,105,.22);
-        --brand: #2563eb;
-        --brand2: #38bdf8;
-        --header: rgba(255,255,255,.72);
-        --shadow: 0 18px 45px -30px rgba(15,23,42,.25);
-      }
-    }
-
-    /* Forced themes */
     html[data-theme="light"]{
-      --bg: #f0f9ff;
-      --surface: #ffffff;
-      --surface2: rgba(15,23,42,.06);
-      --text: #0f172a;
-      --muted: #475569;
-      --border: rgba(71,85,105,.22);
-      --brand: #2563eb;
-      --brand2: #38bdf8;
-      --header: rgba(255,255,255,.72);
-      --shadow: 0 18px 45px -30px rgba(15,23,42,.25);
-    }
-    html[data-theme="dark"]{
-      --bg: #0b1020;
-      --surface: rgba(17,24,39,.88);
-      --surface2: rgba(255,255,255,.06);
-      --text: #e5e7eb;
-      --muted: #9aa4b2;
-      --border: rgba(148,163,184,.18);
-      --brand: #60a5fa;
-      --brand2: #22d3ee;
-      --header: rgba(11,16,32,.72);
-      --shadow: 0 16px 40px -26px rgba(0,0,0,.45);
+      --bg:#f8fafc;
+      --panel:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --border:rgba(71,85,105,.25);
+      --brand:#2563eb;
+      --brand2:#38bdf8;
+      --header:rgba(255,255,255,.8);
     }
 
-    /* =========================
-       Base
-       ========================= */
-    *{ box-sizing: border-box; }
-    html, body{ height:100%; }
+    *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: var(--font);
-      color: var(--text);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-
-      background:
-        radial-gradient(1200px 700px at 80% -10%, rgba(34,211,238,.14), transparent 45%),
-        radial-gradient(900px 450px at -10% 20%, rgba(167,139,250,.12), transparent 50%),
-        var(--bg);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
     }
 
-    a{ color: var(--brand); text-decoration: none; }
-    a:hover{ text-decoration: underline; }
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
 
-    .container{
-      max-width: var(--container);
-      margin: 0 auto;
-      padding: 24px;
-    }
+    .container{max-width:1000px;margin:auto;padding:24px}
 
-    /* Respect reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      html:focus-within{ scroll-behavior:auto; }
-      *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
-    }
-    @media (prefers-reduced-motion: no-preference){
-      html{ scroll-behavior: smooth; }
-    }
-
-    /* =========================
-       Header / Nav
-       ========================= */
     header{
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: saturate(180%) blur(12px);
-      background: var(--header);
-      border-bottom: 1px solid var(--border);
+      position:sticky;top:0;z-index:10;
+      backdrop-filter:blur(12px);
+      background:var(--header);
+      border-bottom:1px solid var(--border);
     }
 
-    .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 16px;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: 12px;
-      font-weight: 750;
-      letter-spacing: .2px;
-      white-space: nowrap;
-    }
-
-    .dot{
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--brand), var(--brand2));
-      box-shadow: 0 0 0 4px rgba(255,255,255,.04);
-    }
-
-    .links{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
+    .nav{display:flex;justify-content:space-between;align-items:center}
+    .links{display:flex;gap:12px;flex-wrap:wrap}
 
     .btn{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-
-      padding: 9px 14px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-
-      color: var(--text);
-      background: transparent;
-      cursor: pointer;
-      user-select: none;
-    }
-    .btn:hover{
-      text-decoration:none;
-      border-color: rgba(148,163,184,.35);
+      padding:8px 14px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:transparent;
+      color:var(--text);
+      cursor:pointer;
     }
 
-    .btn.primary{
-      border: none;
-      color: #0b1020;
-      background: linear-gradient(135deg, var(--brand), var(--brand2));
-    }
-
-    .btn.icon{
-      padding: 9px 12px;
-    }
-
-    /* Skip link for accessibility */
-    .skip{
-      position:absolute;
-      left:-999px;
-      top:auto;
-      width:1px;
-      height:1px;
-      overflow:hidden;
-    }
-    .skip:focus{
-      left: 16px;
-      top: 16px;
-      width: auto;
-      height: auto;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      z-index: 60;
-    }
-
-    /* =========================
-       Layout sections
-       ========================= */
-    section{ scroll-margin-top: 92px; }
-
-    .hero{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 18px;
-      align-items: center;
-      padding: 48px 0 18px;
-    }
-    @media (max-width: 900px){
-      .hero{ grid-template-columns: 1fr; }
-    }
-
-    .kicker{
-      font-family: var(--mono);
-      font-size: 12px;
-      display:inline-flex;
-      align-items:center;
-      gap: 10px;
-      padding: 5px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--surface2);
-      color: var(--muted);
-      width: fit-content;
-    }
-
-    h1{
-      font-size: clamp(28px, 4vw, 48px);
-      line-height: 1.15;
-      margin: 12px 0 10px;
-      letter-spacing: -.2px;
-    }
-
-    .tagline{
-      font-size: clamp(14px, 2.2vw, 18px);
-      color: var(--muted);
-      margin: 0;
-    }
-
-    .cta{
-      display:flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 18px;
-    }
+    .section{padding:48px 0}
+    .section h2{margin-bottom:12px}
 
     .card{
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: var(--shadow);
-    }
-
-    .card h3{
-      margin: 6px 0 8px;
-      font-size: 18px;
-    }
-
-    .muted{
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 16px;
-    }
-
-    .col-12{ grid-column: span 12; }
-    .col-6{ grid-column: span 12; }
-    @media (min-width: 860px){
-      .col-6{ grid-column: span 6; }
-    }
-
-    .section{
-      padding: 34px 0;
-    }
-
-    .section h2{
-      font-size: clamp(20px, 3vw, 28px);
-      margin: 0 0 12px;
-      letter-spacing: -.2px;
-    }
-
-    .pills{
-      display:flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .pill{
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--surface2);
-      color: var(--muted);
-    }
-
-    .project-title{
-      display:flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .project-links{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 12px;
-    }
-
-    .divider{
-      height:1px;
-      background: var(--border);
-      margin: 14px 0;
-      border: none;
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:20px;
+      margin-top:16px;
     }
 
     footer{
-      padding: 30px 0 52px;
-      color: var(--muted);
-      font-size: 14px;
-      display:flex;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      border-top: 1px solid var(--border);
-      margin-top: 30px;
-    }
-
-    code.inline{
-      font-family: var(--mono);
-      font-size: 12px;
-      padding: 2px 6px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--surface2);
+      border-top:1px solid var(--border);
+      padding:32px 0;
+      color:var(--muted);
+      font-size:14px;
+      margin-top:48px;
     }
   </style>
 </head>
 
 <body>
-  <a class="skip" href="#content">Skip to content</a>
-
-  <header>
-    <div class="container nav">
-      <div class="brand">
-        <span class="dot" aria-hidden="true"></span>
-        <span>Xinfeng Gu</span>
-      </div>
-
-      <nav class="links" aria-label="Primary">
-        <a class="btn" href="#projects">Projects</a>
-        <a class="btn" href="#about">About</a>
-        <a class="btn" href="#contact">Contact</a>
-        <button class="btn icon" id="themeToggle" type="button" aria-label="Toggle theme">🌓</button>
-      </nav>
+<header>
+  <div class="container nav">
+    <div>
+      <!-- 你的名字 -->
     </div>
-  </header>
+    <nav class="links">
+      <a class="btn" href="#home">Home</a>
+      <a class="btn" href="#resume">Resume</a>
+      <a class="btn" href="#papers">Papers</a>
+      <a class="btn" href="#contact">Contact</a>
+      <button class="btn" id="themeToggle">Theme</button>
+    </nav>
+  </div>
+</header>
 
-  <main class="container" id="content">
-    <!-- HERO -->
-    <section class="hero" id="home">
-      <div>
-        <div class="kicker">Quant · Crypto-Quant · ZK · LLM</div>
-        <h1>Evidence-driven research, reproducible benchmarks.</h1>
-        <p class="tagline">
-          I turn unstructured signals (text, on-chain, microstructure) into research you can test end-to-end.
-        </p>
+<main class="container">
 
-        <div class="cta">
-          <a class="btn primary" href="#projects">View projects</a>
-          <a class="btn" href="https://github.com/xinfeng-gu" rel="me">GitHub</a>
-          <a class="btn" href="mailto:martineuclid@gmail.com">Email</a>
-          <!-- Optional: add a CV file at /assets/cv.pdf -->
-          <!-- <a class="btn" href="assets/cv.pdf">CV</a> -->
-        </div>
+  <!-- ===== 首頁 ===== -->
+  <section class="section" id="home">
+    <h1></h1>
+    <p></p>
+  </section>
 
-        <div class="pills" aria-label="Focus areas">
-          <span class="pill">Text → Signal → Backtest</span>
-          <span class="pill">DeFi / AMM microstructure</span>
-          <span class="pill">ZK proof systems</span>
-          <span class="pill">Small, solid evals</span>
-        </div>
-      </div>
+  <!-- ===== 簡歷 ===== -->
+  <section class="section" id="resume">
+    <h2>Resume</h2>
 
-      <aside class="card">
-        <h3>Now</h3>
-        <ul class="muted" style="margin:10px 0 0; padding-left: 18px;">
-          <li>Finance/Crypto: <strong>Text → Signal → Backtest</strong> pipelines</li>
-          <li>Uniswap v3 LP: band selection and rebalancing rules</li>
-          <li>ZK: comparing Groth16 vs PLONK on identical circuits</li>
-        </ul>
-        <hr class="divider" />
-        <div class="muted">
-          Location: <code class="inline">Remote</code><br />
-          Status: <code class="inline">Open to research collaborations</code>
-        </div>
-      </aside>
-    </section>
+    <div class="card">
+      <h3></h3>
+      <p></p>
+    </div>
 
-    <!-- PROJECTS -->
-    <section class="section" id="projects">
-      <h2>Featured projects</h2>
-      <p class="muted" style="margin-top:0;">
-        A small set of repositories I actively maintain or use as benchmarks. Edit the list in the script at the bottom.
-      </p>
+    <div class="card">
+      <h3></h3>
+      <p></p>
+    </div>
+  </section>
 
-      <div class="grid" id="projectGrid" aria-live="polite"></div>
-    </section>
+  <!-- ===== 論文 ===== -->
+  <section class="section" id="papers">
+    <h2>Papers</h2>
 
-    <!-- ABOUT -->
-    <section class="section" id="about">
-      <h2>About</h2>
-      <div class="grid">
-        <article class="card col-6">
-          <h3>What I do</h3>
-          <p class="muted" style="margin:0;">
-            I work at the intersection of quantitative research, crypto market structure, and cryptography.
-            I prefer projects that are testable end-to-end: dataset → signal → evaluation → backtest.
-          </p>
-          <div class="pills">
-            <span class="pill">Research engineering</span>
-            <span class="pill">Backtesting</span>
-            <span class="pill">Data pipelines</span>
-          </div>
-        </article>
+    <div class="card">
+      <h3></h3>
+      <p></p>
+      <p></p>
+    </div>
 
-        <article class="card col-6">
-          <h3>Principles</h3>
-          <ul class="muted" style="margin:10px 0 0; padding-left: 18px;">
-            <li>Reproducible results & clear baselines</li>
-            <li>Small benchmarks that survive refactors</li>
-            <li>Explainability: show failure modes, not just wins</li>
-          </ul>
-        </article>
-      </div>
-    </section>
+    <div class="card">
+      <h3></h3>
+      <p></p>
+      <p></p>
+    </div>
+  </section>
 
-    <!-- CONTACT -->
-    <section class="section" id="contact">
-      <h2>Contact</h2>
-      <div class="card">
-        <p class="muted" style="margin-top:0;">
-          Best channel is email. For open-source issues, GitHub is preferred.
-        </p>
+  <!-- ===== 聯絡 ===== -->
+  <section class="section" id="contact">
+    <h2>Contact</h2>
 
-        <div class="cta" style="margin-top: 12px;">
-          <a class="btn" href="mailto:martineuclid@gmail.com">martineuclid@gmail.com</a>
-          <a class="btn" href="https://github.com/xinfeng-gu">github.com/xinfeng-gu</a>
-          <button class="btn" id="copyEmail" type="button">Copy email</button>
-        </div>
+    <div class="card">
+      <p></p>
+      <p></p>
+    </div>
+  </section>
 
-        <hr class="divider" />
+</main>
 
-        <div class="muted">
-          Last updated: <span id="lastUpdated">—</span> ·
-          <span>© <span id="yr">—</span> Xinfeng Gu</span>
-        </div>
-      </div>
-    </section>
+<footer>
+  <div class="container">
+    © <span id="year"></span>
+  </div>
+</footer>
 
-    <footer>
-      <span class="muted">Built as a single static file for GitHub Pages.</span>
-      <span class="muted"><a href="#home">Back to top ↑</a></span>
-    </footer>
-  </main>
+<script>
+  // 主題切換（可不管，能用即可）
+  const btn = document.getElementById("themeToggle");
+  const root = document.documentElement;
+  btn.onclick = () => {
+    root.dataset.theme =
+      root.dataset.theme === "light" ? "dark" : "light";
+  };
 
-  <script>
-    // =========================
-    // Theme toggle
-    // =========================
-    const STORAGE_KEY = "theme"; // "auto" | "light" | "dark"
-    const root = document.documentElement;
-    const toggle = document.getElementById("themeToggle");
-
-    function systemPrefersLight() {
-      return window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
-    }
-
-    function applyTheme(theme) {
-      root.setAttribute("data-theme", theme);
-      localStorage.setItem(STORAGE_KEY, theme);
-      updateThemeButton(theme);
-    }
-
-    function updateThemeButton(theme) {
-      if (!toggle) return;
-      const effective = theme === "auto" ? (systemPrefersLight() ? "light" : "dark") : theme;
-      toggle.textContent = effective === "light" ? "🌙" : "🌞";
-      toggle.setAttribute("aria-label", `Theme: ${theme} (effective: ${effective}). Click to change.`);
-      toggle.title = `Theme: ${theme} (effective: ${effective})`;
-    }
-
-    (function initTheme(){
-      const saved = localStorage.getItem(STORAGE_KEY) || "auto";
-      if (saved !== "auto" && saved !== "light" && saved !== "dark") {
-        applyTheme("auto");
-        return;
-      }
-      root.setAttribute("data-theme", saved);
-      updateThemeButton(saved);
-    })();
-
-    if (toggle) {
-      toggle.addEventListener("click", () => {
-        const current = root.getAttribute("data-theme") || "auto";
-        const next = current === "auto" ? "dark" : (current === "dark" ? "light" : "auto");
-        applyTheme(next);
-      });
-    }
-
-    // Update if system theme changes while in auto
-    if (window.matchMedia) {
-      window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => {
-        const theme = root.getAttribute("data-theme") || "auto";
-        if (theme === "auto") updateThemeButton("auto");
-      });
-    }
-
-    // =========================
-    // Content: projects (edit here)
-    // =========================
-    const projects = [
-      {
-        name: "text_signal_mvp",
-        desc: "Text → Signal → IC → Backtest. Minimal, testable pipeline for finance/crypto text signals.",
-        tags: ["NLP", "Backtest", "Evidence"],
-        repo: "https://github.com/xinfeng-gu/text_signal_mvp",
-        demo: ""
-      },
-      {
-        name: "uniswap-v3-lp-bands",
-        desc: "Experiments on LP band selection and rebalancing rules under different volatility regimes.",
-        tags: ["DeFi", "Uniswap v3", "Microstructure"],
-        repo: "https://github.com/xinfeng-gu/",
-        demo: ""
-      },
-      {
-        name: "zk-proof-bench",
-        desc: "Benchmarks comparing proof systems on the same circuit: size, speed, prover cost.",
-        tags: ["ZK", "Groth16", "PLONK"],
-        repo: "https://github.com/xinfeng-gu/",
-        demo: ""
-      },
-      {
-        name: "micro-benchmarks",
-        desc: "Small, stable evaluation harnesses for research iterations and regression testing.",
-        tags: ["Benchmarks", "Reproducibility"],
-        repo: "https://github.com/xinfeng-gu/",
-        demo: ""
-      }
-    ];
-
-    function renderProjects() {
-      const grid = document.getElementById("projectGrid");
-      if (!grid) return;
-
-      grid.innerHTML = projects.map(p => {
-        const tags = (p.tags || []).map(t => `<span class="pill">${escapeHtml(t)}</span>`).join("");
-        const demoLink = p.demo ? `<a class="btn" href="${p.demo}">Demo</a>` : "";
-        return `
-          <article class="card col-6">
-            <div class="project-title">
-              <h3 style="margin:0;">${escapeHtml(p.name)}</h3>
-              <span class="muted">${p.repo ? `<a href="${p.repo}">Repo</a>` : ""}</span>
-            </div>
-            <p class="muted" style="margin:10px 0 0;">${escapeHtml(p.desc)}</p>
-            <div class="pills">${tags}</div>
-            <div class="project-links">
-              ${p.repo ? `<a class="btn primary" href="${p.repo}">View repo</a>` : ""}
-              ${demoLink}
-            </div>
-          </article>
-        `;
-      }).join("");
-    }
-
-    function escapeHtml(s) {
-      return String(s).replace(/[&<>"']/g, (c) => ({
-        "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"
-      }[c]));
-    }
-
-    renderProjects();
-
-    // =========================
-    // Small utilities
-    // =========================
-    document.getElementById("yr").textContent = new Date().getFullYear();
-    document.getElementById("lastUpdated").textContent =
-      new Date(document.lastModified).toLocaleDateString(undefined, { year:"numeric", month:"short", day:"2-digit" });
-
-    const copyBtn = document.getElementById("copyEmail");
-    if (copyBtn) {
-      copyBtn.addEventListener("click", async () => {
-        const email = "martineuclid@gmail.com";
-        try{
-          await navigator.clipboard.writeText(email);
-          copyBtn.textContent = "Copied ✓";
-          setTimeout(() => copyBtn.textContent = "Copy email", 1200);
-        } catch (e) {
-          // Fallback: open mail client
-          window.location.href = "mailto:" + email;
-        }
-      });
-    }
-  </script>
+  document.getElementById("year").textContent =
+    new Date().getFullYear();
+</script>
 </body>
 </html>
