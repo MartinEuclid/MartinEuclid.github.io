@@ -7,9 +7,6 @@
   <title>Gu Xinfeng — Quant · Crypto · Blockchain · AI</title>
 
   <style>
-    /* =========================
-
-    ========================= */
     :root{
       --bg:#f6fbff;
       --panel:#ffffff;
@@ -27,7 +24,7 @@
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
     }
 
-    /* Dark theme (optional, can be toggled) */
+    /* Dark theme (optional) */
     html[data-theme="dark"]{
       --bg:#0b1020;
       --panel:rgba(17,24,39,.9);
@@ -62,7 +59,7 @@
 
     header{
       position:sticky;top:0;z-index:20;
-      backdrop-filter:saturate(180%) blur(12px); w
+      backdrop-filter:saturate(180%) blur(12px); /* ✅ 你原本這裡多了一個 w，會出錯，我已刪掉 */
       background: rgba(255,255,255,.72);
       border-bottom:1px solid var(--border);
     }
@@ -88,6 +85,12 @@
       cursor:pointer;user-select:none;
     }
     .btn:hover{ text-decoration:none; border-color:rgba(71,85,105,.30); }
+
+    /* 当前选中的菜单按钮 */
+    .btn.active{
+      border-color: rgba(37,99,235,.35);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+    }
 
     .btn.primary{
       border:none;
@@ -193,6 +196,12 @@
       padding:10px 12px;border-radius:12px;background:var(--panel);
       border:1px solid var(--border);z-index:99;
     }
+
+    /* =========================
+      ✅ 关键：页面切换（只显示一个 section）
+    ========================= */
+    .page{ display:none; }
+    .page.active{ display:block; }
   </style>
 </head>
 
@@ -203,17 +212,19 @@
     <div class="container nav">
       <div class="brand">
         <span class="dot" aria-hidden="true"></span>
-        <!--  -->
         <span>Gu Xinfeng</span>
       </div>
 
+      <!-- ✅ 这些按钮不是跳转滚动，而是“切换显示” -->
       <nav class="links" aria-label="Primary">
-        <a class="btn" href="#home">Home</a>
-        <a class="btn" href="#research">Research</a>
-        <a class="btn" href="#experience">Experience</a>
-        <a class="btn" href="#papers">Papers</a>
-        <a class="btn" href="#skills">Skills</a>
-        <a class="btn" href="#contact">Contact</a>
+        <a class="btn navbtn" href="#home" data-target="home">Home</a>
+        <a class="btn navbtn" href="#research" data-target="research">Research</a>
+        <a class="btn navbtn" href="#projects" data-target="projects">Projects</a>
+        <a class="btn navbtn" href="#experience" data-target="experience">Experience</a>
+        <a class="btn navbtn" href="#papers" data-target="papers">Papers</a>
+        <a class="btn navbtn" href="#skills" data-target="skills">Skills</a>
+        <a class="btn navbtn" href="#awards" data-target="awards">Awards</a>
+        <a class="btn navbtn" href="#contact" data-target="contact">Contact</a>
         <button class="btn" id="themeToggle" type="button" aria-label="Toggle theme">🌙</button>
       </nav>
     </div>
@@ -221,297 +232,338 @@
 
   <main class="container" id="content">
     <!-- =========================
-      HERO
+      HOME (只在 Home 显示)
     ========================= -->
-    <section class="hero" id="home">
-      <div>
-        <div class="kicker">Quant · Crypto · Blockchain (ZK) · AI</div>
-        <h1>Evidence-driven research, reproducible experiments.</h1>
-        <p class="tagline">
-          I work on quantitative finance and crypto market research, zero-knowledge proof engineering,
-          and AI.
-        </p>
+    <section class="page active" id="home">
+      <div class="hero">
+        <div>
+          <div class="kicker">Quant · Crypto · Blockchain (ZK) · AI</div>
+          <h1>Evidence-driven research, reproducible experiments.</h1>
+          <p class="tagline">
+            I work on quantitative finance and crypto market research, zero-knowledge proof engineering,
+            and AI.
+          </p>
 
-        <div class="cta">
+          <div class="cta">
+            <a class="btn" href="https://github.com/xinfeng-gu">GitHub</a>
+            <a class="btn" href="mailto:martineuclid@gmail.com">Email</a>
+          </div>
 
-          <!--  -->
-          <a class="btn" href="https://github.com/xinfeng-gu">GitHub</a>
-
-          <!--  -->
-          <a class="btn" href="mailto:martineuclid@gmail.com">Email</a>
+          <div class="pills" aria-label="Focus areas">
+            <span class="pill">Crypto market microstructure</span>
+            <span class="pill">Text / signals / evaluation</span>
+            <span class="pill">Stochastic control + RL</span>
+            <span class="pill">ZK: SNARK/PLONK/FRI</span>
+          </div>
         </div>
 
-        <div class="pills" aria-label="Focus areas">
-          <span class="pill">Crypto market microstructure</span>
-          <span class="pill">Text / signals / evaluation</span>
-          <span class="pill">Stochastic control + RL</span>
-          <span class="pill">ZK: SNARK/PLONK/FRI</span>
-        </div>
+        <aside class="card">
+          <div class="rowTitle">
+            <h3>Now</h3>
+            <span class="muted"><code class="inline">Open to research collaboration</code></span>
+          </div>
+          <ul class="tight muted">
+            <li>Quant & crypto research pipelines: hypothesis → data → evaluation → backtest</li>
+            <li>Zero-knowledge proof components and benchmarking (BN254 / BLS12-381)</li>
+            <li>RL / optimization under constraints (control, portfolio, HJB-type problems)</li>
+          </ul>
+          <hr class="divider" />
+          <p class="muted" style="margin:0;">
+            Phone: <code class="inline">+852 6277 1267</code>
+          </p>
+        </aside>
       </div>
-      <aside class="card">
-        <div class="rowTitle">
-          <h3>Now</h3>
-          <span class="muted"><code class="inline">Open to research collaboration</code></span>
-        </div>
-        <ul class="tight muted">
-          <li>Quant & crypto research pipelines: hypothesis → data → evaluation → backtest</li>
-          <li>Zero-knowledge proof components and benchmarking (BN254 / BLS12-381)</li>
-          <li>RL / optimization under constraints (control, portfolio, HJB-type problems)</li>
-        </ul>
-        <hr class="divider" />
-        <p class="muted" style="margin:0;">
-          <!-- ✅ 你要不要顯示電話自己決定；不想放就把這行刪掉 -->
-          Phone: <code class="inline">+852 6277 1267</code>
-        </p>
-      </aside>
     </section>
 
     <!-- =========================
-      RESEARCH (把教育背景隱去，只保留關鍵詞)
+      RESEARCH
     ========================= -->
-    <section class="section" id="research">
-      <h2>Research direction</h2>
+    <section class="page" id="research">
+      <div class="section">
+        <h2>Research direction</h2>
 
-      <div class="grid">
-        <article class="card col-6">
-          <div class="rowTitle">
-            <h3>Quant & Crypto</h3>
-            <span class="muted">Research</span>
-          </div>
-          <p class="muted" style="margin:10px 0 0;">
-            Quantitative finance and crypto market research with emphasis on rigorous evaluation,
-            leakage-aware validation, and reproducible pipelines.
-          </p>
-          <div class="pills">
-            <span class="pill">Portfolio optimization</span>
-            <span class="pill">Microstructure</span>
-            <span class="pill">SQL data feeds</span>
-            <span class="pill">Backtesting</span>
-          </div>
-        </article>
+        <div class="grid">
+          <article class="card col-6">
+            <div class="rowTitle">
+              <h3>Quant & Crypto</h3>
+              <span class="muted">Research</span>
+            </div>
+            <p class="muted" style="margin:10px 0 0;">
+              Quantitative finance and crypto market research with emphasis on rigorous evaluation,
+              leakage-aware validation, and reproducible pipelines.
+            </p>
+            <div class="pills">
+              <span class="pill">Portfolio optimization</span>
+              <span class="pill">Microstructure</span>
+              <span class="pill">SQL data feeds</span>
+              <span class="pill">Backtesting</span>
+            </div>
+          </article>
 
-        <article class="card col-6">
-          <div class="rowTitle">
-            <h3>Blockchain & ZK</h3>
-            <span class="muted">Engineering</span>
-          </div>
-          <p class="muted" style="margin:10px 0 0;">
-            ZK proof systems and implementation details: pairings, FFT/MSM, prover/verifier benchmarking,
-            and security assumptions (Fiat–Shamir style arguments).
-          </p>
-          <div class="pills">
-            <span class="pill">SNARK / PLONK / FRI</span>
-            <span class="pill">BN254 / BLS12-381</span>
-            <span class="pill">Rust / Solidity</span>
-            <span class="pill">Fuzzing / test vectors</span>
-          </div>
-        </article>
+          <article class="card col-6">
+            <div class="rowTitle">
+              <h3>Blockchain & ZK</h3>
+              <span class="muted">Engineering</span>
+            </div>
+            <p class="muted" style="margin:10px 0 0;">
+              ZK proof systems and implementation details: pairings, FFT/MSM, prover/verifier benchmarking,
+              and security assumptions (Fiat–Shamir style arguments).
+            </p>
+            <div class="pills">
+              <span class="pill">SNARK / PLONK / FRI</span>
+              <span class="pill">BN254 / BLS12-381</span>
+              <span class="pill">Rust / Solidity</span>
+              <span class="pill">Fuzzing / test vectors</span>
+            </div>
+          </article>
 
-        <article class="card col-12">
-          <div class="rowTitle">
-            <h3>AI / RL under constraints</h3>
-            <span class="muted">Methods</span>
-          </div>
-          <p class="muted" style="margin:10px 0 0;">
-            Reinforcement learning and optimization for partially observed stochastic systems,
-            delay systems, and mixed state–control constraints. Focus on stability, robustness,
-            and diagnostic-driven iteration.
-          </p>
-          <div class="pills">
-            <span class="pill">Stochastic processes</span>
-            <span class="pill">Convex optimization</span>
-            <span class="pill">HJB / PDE</span>
-            <span class="pill">Ablations & diagnostics</span>
-          </div>
-        </article>
+          <article class="card col-12">
+            <div class="rowTitle">
+              <h3>AI / RL under constraints</h3>
+              <span class="muted">Methods</span>
+            </div>
+            <p class="muted" style="margin:10px 0 0;">
+              Reinforcement learning and optimization for partially observed stochastic systems,
+              delay systems, and mixed state–control constraints. Focus on stability, robustness,
+              and diagnostic-driven iteration.
+            </p>
+            <div class="pills">
+              <span class="pill">Stochastic processes</span>
+              <span class="pill">Convex optimization</span>
+              <span class="pill">HJB / PDE</span>
+              <span class="pill">Ablations & diagnostics</span>
+            </div>
+          </article>
 
-        <!-- ✅ 這一塊是“教育關鍵詞”，不包含學校/學位/年份 -->
-        <article class="card col-12">
-          <div class="rowTitle">
-            <h3>Background keywords</h3>
-            <span class="muted">No institutions listed</span>
-          </div>
-          <p class="muted" style="margin:10px 0 0;">
-            Real analysis, high-dimensional analysis, stochastic processes, simulation, numerical analysis,
-            abstract algebra, functional analysis, convex optimization, machine learning.
-          </p>
-        </article>
+          <article class="card col-12">
+            <div class="rowTitle">
+              <h3>Background keywords</h3>
+              <span class="muted">No institutions listed</span>
+            </div>
+            <p class="muted" style="margin:10px 0 0;">
+              Real analysis, high-dimensional analysis, stochastic processes, simulation, numerical analysis,
+              abstract algebra, functional analysis, convex optimization, machine learning.
+            </p>
+          </article>
+        </div>
       </div>
     </section>
-section class="section" id="projects">
-      <h2>Projects</h2>
-      <p class="muted" style="margin-top:0;">
-        A lightweight list of work-in-progress experiments and released code. Add a project by duplicating a card.
-      </p>
-
-      <div class="grid">
-        <!-- 默认提示：你还没加任何项目时显示它；以后有项目了，可以删除这个卡片 -->
-        <article class="card col-12">
-          <div class="rowTitle">
-            <h3>No projects listed yet</h3>
-            <span class="muted">Add your first one</span>
-          </div>
-          <p class="muted" style="margin:10px 0 0;">
-            To add a project, copy the template card in the HTML comments below and paste it above this card.
-          </p>
-        </article>
 
     <!-- =========================
-      EXPERIENCE
+      PROJECTS (只在点击 Projects 时显示)
     ========================= -->
-    <section class="section" id="experience">
-      <h2>Experience</h2>
+    <section class="page" id="projects">
+      <div class="section">
+        <h2>Projects</h2>
+        <p class="muted" style="margin-top:0;">
+          Add a project by duplicating the template card. Keep it short: what it is, what you measured, links.
+        </p>
 
-      <div class="grid">
-        <article class="card col-12">
-          <div class="rowTitle">
-            <h3>Cryptography & Blockchain — Research Assistant</h3>
-            <span class="muted">Sep 2025 — Present</span>
-          </div>
-          <ul class="tight muted">
-            <li>Prototyped ZK proof components in <strong>Rust / Solidity / Python</strong>; benchmarked prover & verifier on <strong>BN254 / BLS12-381</strong> circuits.</li>
-            <li>Formalized security assumptions (soundness / knowledge via Fiat–Shamir style arguments); authored test vectors and basic fuzzing.</li>
-          </ul>
-        </article>
+        <div class="grid">
+          <!-- 占位卡片：你有项目后可以删除这张 -->
+          <article class="card col-12">
+            <div class="rowTitle">
+              <h3>No projects listed yet</h3>
+              <span class="muted">Add your first one</span>
+            </div>
+            <p class="muted" style="margin:10px 0 0;">
+              Copy the template card below (in HTML comment), paste it above this card, and edit title/desc/links.
+            </p>
+          </article>
 
-        <article class="card col-12">
-          <div class="rowTitle">
-            <h3>Quantitative Finance / Control — Research & Student Assistant</h3>
-            <span class="muted">2023 — 2025</span>
-          </div>
-          <ul class="tight muted">
-            <li>High-dimensional sparse models for evolving networks; data collection/cleaning and out-of-sample evaluation (<strong>R</strong>).</li>
-            <li>Portfolio optimization pipelines with supervised ML & RL; leakage-aware cross-validation; reproducible experiments (<strong>Python / C++</strong>).</li>
-            <li>Stochastic control and RL under constraints: partially observed systems, delay systems, HJB/PDE formulations; stability/robustness validation (<strong>Python / MATLAB</strong>).</li>
-            <li>Continuous-time portfolio selection with execution/position constraints; backtests with <strong>SQL</strong> data feeds.</li>
-            <li>McKean–Vlasov control with mixed constraints; convergence diagnostics and experiment logging.</li>
-          </ul>
-        </article>
+          <!-- ===== PROJECT CARD TEMPLATE (COPY ME) =====
+          <article class="card col-6">
+            <div class="rowTitle">
+              <h3>Project name</h3>
+              <span class="muted">WIP / Released</span>
+            </div>
+
+            <p class="muted" style="margin:10px 0 0;">
+              One-line description: what you built / measured / learned.
+            </p>
+
+            <div class="pills">
+              <span class="pill">Tag 1</span>
+              <span class="pill">Tag 2</span>
+              <span class="pill">Tag 3</span>
+            </div>
+
+            <div class="cta" style="margin-top:12px;">
+              <a class="btn primary" href="https://github.com/your-repo">Repo</a>
+              <a class="btn" href="https://your-demo-link">Demo</a>
+              <a class="btn" href="https://arxiv.org/abs/xxxxx">Paper</a>
+            </div>
+          </article>
+          ===== END TEMPLATE ===== -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+      EXPERIENCE (✅ 按你提供的内容修好 + 结构完整)
+    ========================= -->
+    <section class="page" id="experience">
+      <div class="section">
+        <h2>Experience</h2>
+
+        <div class="grid">
+          <article class="card col-12">
+            <div class="rowTitle">
+              <h3>Cryptography & Blockchain — Research Assistant</h3>
+              <span class="muted">Sep 2025 — Present</span>
+            </div>
+            <ul class="tight muted">
+              <li>Prototyped ZK proof components in <strong>Rust / Solidity / Python</strong>; benchmarked prover & verifier on <strong>BN254 / BLS12-381</strong> circuits.</li>
+              <li>Formalized security assumptions (soundness / knowledge via Fiat–Shamir style arguments); authored test vectors and basic fuzzing.</li>
+            </ul>
+          </article>
+
+          <article class="card col-12">
+            <div class="rowTitle">
+              <h3>Quantitative Finance / Control — Research & Student Assistant</h3>
+              <span class="muted">2023 — 2025</span>
+            </div>
+            <ul class="tight muted">
+              <li>High-dimensional sparse models for evolving networks; data collection/cleaning and out-of-sample evaluation (<strong>R</strong>).</li>
+              <li>Portfolio optimization pipelines with supervised ML & RL; leakage-aware cross-validation; reproducible experiments (<strong>Python / C++</strong>).</li>
+              <li>Stochastic control and RL under constraints: partially observed systems, delay systems, HJB/PDE formulations; stability/robustness validation (<strong>Python / MATLAB</strong>).</li>
+              <li>Continuous-time portfolio selection with execution/position constraints; backtests with <strong>SQL</strong> data feeds.</li>
+              <li>McKean–Vlasov control with mixed constraints; convergence diagnostics and experiment logging.</li>
+            </ul>
+          </article>
+        </div>
       </div>
     </section>
 
     <!-- =========================
       PAPERS
     ========================= -->
-    <section class="section" id="papers">
-      <h2>Papers</h2>
+    <section class="page" id="papers">
+      <div class="section">
+        <h2>Papers</h2>
 
-      <div class="grid">
-        <article class="card col-12">
-          <div class="rowTitle">
-            <h3>Optimal Consumption–Investment for General Utility with a Drawdown Constraint over a Finite-Time Horizon</h3>
-            <span class="muted">2025</span>
-          </div>
-          <p class="muted" style="margin:10px 0 0;">
-            Chonghu Guan, Xinfeng Gu, Wenhao Zhang, Xun Li.
-          </p>
-          <div class="cta" style="margin-top:12px;">
-            <a class="btn primary" href="https://arxiv.org/abs/2507.05115">arXiv:2507.05115</a>
-            <!-- ✅ 如果你也有PDF想自己放：把文件放 assets/papers/xxx.pdf，然後改下面href -->
-            <!-- <a class="btn" href="assets/papers/drawdown.pdf">PDF</a> -->
-          </div>
-        </article>
+        <div class="grid">
+          <article class="card col-12">
+            <div class="rowTitle">
+              <h3>Optimal Consumption–Investment for General Utility with a Drawdown Constraint over a Finite-Time Horizon</h3>
+              <span class="muted">2025</span>
+            </div>
+            <p class="muted" style="margin:10px 0 0;">
+              Chonghu Guan, Xinfeng Gu, Wenhao Zhang, Xun Li.
+            </p>
+            <div class="cta" style="margin-top:12px;">
+              <a class="btn primary" href="https://arxiv.org/abs/2507.05115">arXiv:2507.05115</a>
+            </div>
+          </article>
 
-        <article class="card col-12">
-          <div class="rowTitle">
-            <h3>Working paper</h3>
-            <span class="muted">Draft</span>
-          </div>
-          <p class="muted" style="margin:10px 0 0;">
-            A Reinforcement Learning Method for Optimal Multi-period Mean–Variance (draft in preparation).
-          </p>
-        </article>
+          <article class="card col-12">
+            <div class="rowTitle">
+              <h3>Working paper</h3>
+              <span class="muted">Draft</span>
+            </div>
+            <p class="muted" style="margin:10px 0 0;">
+              A Reinforcement Learning Method for Optimal Multi-period Mean–Variance (draft in preparation).
+            </p>
+          </article>
+        </div>
       </div>
     </section>
 
     <!-- =========================
       SKILLS
     ========================= -->
-    <section class="section" id="skills">
-      <h2>Skills</h2>
+    <section class="page" id="skills">
+      <div class="section">
+        <h2>Skills</h2>
 
-      <div class="grid">
-        <article class="card col-6">
-          <div class="rowTitle">
-            <h3>Programming</h3>
-            <span class="muted">Tools</span>
-          </div>
-          <p class="muted" style="margin:10px 0 0;">
-            Python, C++, Rust, Solidity, R, MATLAB, SQL, LaTeX
-          </p>
-        </article>
+        <div class="grid">
+          <article class="card col-6">
+            <div class="rowTitle">
+              <h3>Programming</h3>
+              <span class="muted">Tools</span>
+            </div>
+            <p class="muted" style="margin:10px 0 0;">
+              Python, C++, Rust, Solidity, R, MATLAB, SQL, LaTeX
+            </p>
+          </article>
 
-        <article class="card col-6">
-          <div class="rowTitle">
-            <h3>Domains</h3>
-            <span class="muted">Focus</span>
-          </div>
-          <p class="muted" style="margin:10px 0 0;">
-            ZK (SNARK/PLONK/FRI), Pairings/FFT/MSM, EVM; Stochastic control, RL, optimization
-          </p>
-        </article>
+          <article class="card col-6">
+            <div class="rowTitle">
+              <h3>Domains</h3>
+              <span class="muted">Focus</span>
+            </div>
+            <p class="muted" style="margin:10px 0 0;">
+              ZK (SNARK/PLONK/FRI), Pairings/FFT/MSM, EVM; Stochastic control, RL, optimization
+            </p>
+          </article>
 
-        <article class="card col-12">
-          <div class="rowTitle">
-            <h3>Languages</h3>
-            <span class="muted">Human</span>
-          </div>
-          <p class="muted" style="margin:10px 0 0;">
-            English · Mandarin (native) · Cantonese (fluent) · Japanese (JLPT N2) · Korean · Vietnamese
-          </p>
-        </article>
+          <article class="card col-12">
+            <div class="rowTitle">
+              <h3>Languages</h3>
+              <span class="muted">Human</span>
+            </div>
+            <p class="muted" style="margin:10px 0 0;">
+              English · Mandarin (native) · Cantonese (fluent) · Japanese (JLPT N2) · Korean · Vietnamese
+            </p>
+          </article>
+        </div>
       </div>
     </section>
 
     <!-- =========================
-      AWARDS (可選)
+      AWARDS
     ========================= -->
-    <section class="section" id="awards">
-      <h2>Awards</h2>
-      <div class="card">
-        <ul class="tight muted">
-          <li>Simon Marais Mathematics Competition — SFM Prize (Top Quartile), 2022</li>
-          <li>Simon Marais Mathematics Competition — SFM Prize (Top Quartile), 2023</li>
-        </ul>
+    <section class="page" id="awards">
+      <div class="section">
+        <h2>Awards</h2>
+
+        <div class="card">
+          <ul class="tight muted">
+            <li>Simon Marais Mathematics Competition — SFM Prize (Top Quartile), 2022</li>
+            <li>Simon Marais Mathematics Competition — SFM Prize (Top Quartile), 2023</li>
+          </ul>
+        </div>
       </div>
     </section>
 
     <!-- =========================
       CONTACT
     ========================= -->
-    <section class="section" id="contact">
-      <h2>Contact</h2>
+    <section class="page" id="contact">
+      <div class="section">
+        <h2>Contact</h2>
 
-      <div class="card">
-        <p class="muted" style="margin-top:0;">
-          For collaborations, research internships, or engineering roles in quant/crypto/ZK/Blockchain/AI, email is best.
-        </p>
+        <div class="card">
+          <p class="muted" style="margin-top:0;">
+            For collaborations, research internships, or engineering roles in quant/crypto/ZK/Blockchain/AI, email is best.
+          </p>
 
-        <div class="cta" style="margin-top:12px;">
-          <a class="btn primary" href="mailto:martineuclid@gmail.com">martineuclid@gmail.com</a>
-          <a class="btn" href="https://github.com/xinfeng-gu">GitHub</a>
-          <button class="btn" id="copyEmail" type="button">Copy email</button>
+          <div class="cta" style="margin-top:12px;">
+            <a class="btn primary" href="mailto:martineuclid@gmail.com">martineuclid@gmail.com</a>
+            <a class="btn" href="https://github.com/xinfeng-gu">GitHub</a>
+            <button class="btn" id="copyEmail" type="button">Copy email</button>
+          </div>
+
+          <hr class="divider" />
+
+          <p class="muted" style="margin:0;">
+            Last updated: <span id="lastUpdated">—</span> · © <span id="yr">—</span> Gu Xinfeng
+          </p>
         </div>
-
-        <hr class="divider" />
-
-        <p class="muted" style="margin:0;">
-          Last updated: <span id="lastUpdated">—</span> · © <span id="yr">—</span> Gu Xinfeng
-        </p>
       </div>
     </section>
 
     <footer>
       <div class="container" style="padding:0;">
         <span class="muted">Built as a single static file for GitHub Pages.</span>
-        <span style="float:right;" class="muted"><a href="#home">Back to top ↑</a></span>
+        <span style="float:right;" class="muted"><a href="#home" class="navbtn" data-target="home">Back to Home ↑</a></span>
       </div>
     </footer>
   </main>
 
   <script>
     // =========================
-    
+    // Theme toggle (default = light)
     // =========================
     const STORAGE_KEY = "theme";
     const root = document.documentElement;
@@ -524,11 +576,10 @@ section class="section" id="projects">
       if (toggle) toggle.title = `Theme: ${theme}`;
     }
 
-    // init
     (function(){
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved === "dark" || saved === "light") setTheme(saved);
-      else setTheme("light"); 
+      else setTheme("light"); // 默认白天
     })();
 
     if (toggle){
@@ -537,6 +588,52 @@ section class="section" id="projects">
         setTheme(current === "light" ? "dark" : "light");
       });
     }
+
+    // =========================
+    // ✅ Page switch: click nav to show the corresponding section
+    // =========================
+    const pages = Array.from(document.querySelectorAll(".page"));
+    const navBtns = Array.from(document.querySelectorAll(".navbtn"));
+
+    function showPage(id, updateHash = true){
+      const exists = pages.some(p => p.id === id);
+      const targetId = exists ? id : "home";
+
+      pages.forEach(p => p.classList.toggle("active", p.id === targetId));
+      navBtns.forEach(b => b.classList.toggle("active", b.dataset.target === targetId));
+
+      // 更新 hash（方便分享链接/刷新保持页面）
+      if (updateHash) {
+        const newHash = "#" + targetId;
+        if (location.hash !== newHash) history.pushState(null, "", newHash);
+      }
+
+      // 切换页面后回到顶部（体验像“切页”）
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    }
+
+    // 点击导航：阻止默认滚动，改为切换显示
+    navBtns.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        // 允许外链正常打开（这里 navbtn 只用于站内）
+        if (btn.dataset && btn.dataset.target) {
+          e.preventDefault();
+          showPage(btn.dataset.target, true);
+        }
+      });
+    });
+
+    // 初次加载：如果 URL 带 #experience，就直接显示对应页
+    (function initPage(){
+      const hash = (location.hash || "#home").replace("#", "");
+      showPage(hash, false);
+    })();
+
+    // 浏览器后退/前进
+    window.addEventListener("popstate", () => {
+      const hash = (location.hash || "#home").replace("#", "");
+      showPage(hash, false);
+    });
 
     // Footer dates
     document.getElementById("yr").textContent = new Date().getFullYear();
